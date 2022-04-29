@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db_wms
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=wms
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - node-network
+  app:    
+    build:
+      context: node
+    command: bash -c "npm install && node dbServer.js"
+    networks:
+      - node-network
+    volumes:
+      - /usr/src/app
+    tty: true
+    ports:
+      - 3000:3000
+
+networks:
+  node-network:
+    driver: bridge 
