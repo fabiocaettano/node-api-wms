@@ -3,6 +3,8 @@ npm i express mysql
 
 npm i nodemon dotenv --save-dev
 
+npm i bcrypt
+
 docker-compose up -d --build
 
 docer-compose down
